@@ -37,6 +37,20 @@ def get_by_id(id):
         return make_response(restaurant.to_dict(),200)
     return make_response({'error':'Restaurant not found'},404)
 
+@app.route("/restaurants/<int:id>",methods=['DELETE'])
+def delete(id):
+    restaurant=Restaurant.query.filter_by(id=id).first()
+    if restaurant:
+        db.session.delete(restaurant)
+        db.session.commit()
+        return make_response("",204)
+    return make_response({"error":"Restaurant not found"},404)
+
+@app.route("/pizzas")
+def get_pizzas():
+    pizzas=Pizza.query.all()
+    pizzas_data=[pizza.to_dict(only=("id",'name','ingredients'))for pizza in pizzas]
+    return make_response(pizzas_data),200
 
 
 if __name__ == '__main__':
