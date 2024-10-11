@@ -30,6 +30,13 @@ def get():
     restaurants_data=[restaurant.to_dict(only=('id','name','address'))for restaurant in restaurants]
     return make_response(restaurants_data),200
 
+@app.route("/restaurants/<int:id>")
+def get_by_id(id):
+    restaurant=Restaurant.query.filter_by(id=id).first()
+    if restaurant:
+        return make_response(restaurant.to_dict(),200)
+    return make_response({'error':'Restaurant not found'},404)
+
 
 
 if __name__ == '__main__':
