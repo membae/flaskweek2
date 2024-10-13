@@ -24,7 +24,7 @@ class Restaurant(db.Model, SerializerMixin):
     pizzas=association_proxy('restaurant_pizzas','pizza')
 
     # add serialization rules
-    serialize_rules=('-restaurant_pizzas',)
+    # serialize_rules=('restaurant_pizzas',)
 
     def __repr__(self):
         return f'<Restaurant {self.name}>'
@@ -42,7 +42,7 @@ class Pizza(db.Model, SerializerMixin):
 
     restaurants=association_proxy('restaurant_pizzas','restaurant')
     # add serialization rules
-    serialize_rules=("-restaurant_pizzas",)
+    # serialize_rules=("-restaurant_pizzas",)
     def __repr__(self):
         return f'<Pizza {self.name}, {self.ingredients}>'
 
@@ -62,7 +62,7 @@ class RestaurantPizza(db.Model, SerializerMixin):
 
 
     # add serialization rules
-    serialize_rules=("-restaurant.restaurant_pizzas","-pizza.restaurant_pizzas")
+    # serialize_rules=("-restaurant.restaurant_pizzas","-pizza.restaurant_pizzas")
     # add validation
     @validates('price')
     def validate_price(self,key,price):
